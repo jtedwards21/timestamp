@@ -2,32 +2,44 @@ var express = require('express')
 var sugar = require('sugar')
 var app = express()
 
-var unixre = /^[0-9]*$/;
-var nat
+
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 app.get('/:input', function (req, res) {
 　　res.setHeader('Content-Type', 'application/json');
-  console.log(req.params.input);
+  var sdate = sugar.Date.create(req.params.input);
+  var valid = sugar.Date.isValid(sdate);
+  var unixre = /^[0-9]*$/
+  var is_unix = unixre.test(req.params.input);
 
-  var is_unixre = unixre.test(req.params.input);
-  console.log(is_unixre);
-  
-  if (is_unixre == true){
-	var d = new Date(req.params.input)
-	res.send(JSON.stringify({unix: req.params.input, natural: d}));
-	//Convert d to natual language
+
+　　if (valid == true && is_unix == false){
+	var unixdate = Date.parse(sdate);
+	res.send(JSON.stringify({natural: req.params.input, unix: unixdate}));
+  }
+  if (valid == false && is_unix == true){
+	var p = parseInt(req.params.input);
+	var natural_date = new Date(p);
+	var build = " " + natural_date.getDate() + ", " + natural_date.getFullYear()
+	var m = natural_date.getMonth()
+	var build = months[m] + build
+	var natural_date = build
+	res.send(JSON.stringify({natural: natural_date, unix: req.params.input}));
+  }
+　　if (valid == true && is_unix == true){
+	var p = parseInt(req.params.input);
+	var natural_date = new Date(p);
+	var build = " " + natural_date.getDate() + ", " + natural_date.getFullYear()
+	var m = natural_date.getMonth()
+	var build = months[m] + build
+	var natural_date = build
+	res.send(JSON.stringify({natural: natural_date, unix: req.params.input}));
+  }
+  if (valid == false && is_unix == false) {
+	res.send(JSON.stringify({unix: null, natural: null}));
   }
 
   
-
-  var nldate = sugar.Date.create(req.params.input);
-  var is_nld = sugar.Date.isValid(nldate);
-  console.log(is_nld);
-
-  //If valid, display JSON
-
-  //Otherwise, return null values for those properties
-  res.send(JSON.stringify({a:1}));
 });
 
 app.listen(3000, function () {
