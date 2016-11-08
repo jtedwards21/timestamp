@@ -1,8 +1,11 @@
 var express = require('express')
 var app = express()
 
-app.get('/', function (req, res) {
+var unixre = /$[0-9]*^/;
+
+app.get('/:input', function (req, res) {
 　　res.setHeader('Content-Type', 'application/json');
+  console.log(req.params.input);
   res.send(JSON.stringify({a:1}));
 });
 
