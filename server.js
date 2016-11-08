@@ -11,12 +11,22 @@ app.get('/:input', function (req, res) {
 
   var is_unixre = unixre.test(req.params.input);
   console.log(is_unixre);
-
-  var d = sugar.Date.create("July 4, 1776");
   
-  var is_nld = sugar.Date.isValid(d);
+  if (is_unixre == true){
+	var d = new Date(req.params.input)
+	res.send(JSON.stringify({unix: req.params.input, natural: d}));
+	//Convert d to natual language
+  }
+
+  
+
+  var nldate = sugar.Date.create(req.params.input);
+  var is_nld = sugar.Date.isValid(nldate);
   console.log(is_nld);
 
+  //If valid, display JSON
+
+  //Otherwise, return null values for those properties
   res.send(JSON.stringify({a:1}));
 });
 
