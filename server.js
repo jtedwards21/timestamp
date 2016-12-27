@@ -13,9 +13,10 @@ app.get('/:input', function (req, res) {
 　　res.setHeader('Content-Type', 'application/json');
   var sdate = sugar.Date.create(req.params.input);
   var valid = sugar.Date.isValid(sdate);
-  var unixre = /^[0-9]*$/
+  var unixre = /^[-]?[0-9]*$/
   var is_unix = unixre.test(req.params.input);
-
+  console.log('valid?' + valid);
+  console.log('unix?' + is_unix);
 
 　　if (valid == true && is_unix == false){
 	var unixdate = Date.parse(sdate);
