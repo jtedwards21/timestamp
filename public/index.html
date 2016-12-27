@@ -12,9 +12,16 @@
 
 <div id="content" class="container">
   <div class="row">
-      <div id="box" class="col-md-6 col-md-offset-3">
-	<h1>Usage:   /input</h1>
-	<h2>Input can be a unix timestamp or a date</h2>
+      <div id="box" class="col-md-8 col-md-offset-2">
+	<h1>Usage: Pass a unix timestamp or a natural date</h1>
+	<h2>Example Usage:</h2>
+	<code>https://timestamp78.herokuapp.com/December 17, 2016</code>
+	<code>https://timestamp78.herokuapp.com/1482019200000</code>
+
+	<h1>Output: Returns Natural Date and Unix Time in JSON format</h1>
+	<h2>Example Output:</h2>
+	<code>{"natural":"December 17, 2016","unix":1481932800000}</code>
+	<code>{"natural":"December 18, 2016","unix":"1482019200000"}</code>
       </div>
   </div>
 </div>
