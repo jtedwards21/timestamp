@@ -1,9 +1,13 @@
 var express = require('express')
 var sugar = require('sugar')
 var app = express()
-
+app.use('/public', express.static(process.cwd() + '/public'));
 
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+app.get('/', function(req,res){
+  res.sendFile(process.cwd() + '/public/index.html');
+});
 
 app.get('/:input', function (req, res) {
 　　res.setHeader('Content-Type', 'application/json');
