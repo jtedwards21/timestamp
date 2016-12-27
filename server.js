@@ -17,7 +17,11 @@ var isNaturalLanguageDateF = function(input){
     }
   }
 
-  if(startsWithMonth == true && valid == true){return true} else {return false}
+  var natRe = /[0-9]?[0-9], [0-9]*$/;
+  var followsFormat = input.search(natRe);
+  
+
+  if(startsWithMonth == true && valid == true && followsFormat !== -1){return true} else {return false}
 
 }
 
@@ -33,7 +37,7 @@ var unix2natural = function(unixTime){
 
 var natural2unix = function(natural_date){
   var unixdate = Date.parse(natural_date);
-  return {natural: natural_data, unix: unixdate};
+  return {natural: natural_date, unix: unixdate};
 };
 
 app.get('/', function(req,res){
@@ -55,7 +59,7 @@ app.get('/:input', function (req, res) {
      inputType = "natural";
   } else if (isNaturalLanguageDate == false && is_unix == true){
 	inputType = "unix";
-  } else if (valid == false && is_unix == false) {
+  } else if (isNaturalLanguageDate == false && is_unix == false) {
 	inputType = "none";
   }
 
